@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
           Map<String, dynamic>? routeArgs = settings.arguments as Map<String, dynamic>?;
           return MaterialPageRoute(builder: (context) => DevocionalSelected(devocional: routeArgs!["devocional"]));
         }
+        return null;
       },
       home: const MyHomePage(title: 'BibleWise Dashboard'),
     );

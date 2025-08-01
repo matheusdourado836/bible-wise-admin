@@ -296,7 +296,7 @@ class _PostContainerState extends State<PostContainer> with SingleTickerProvider
         borderRadius: BorderRadius.circular(8),
         image: DecorationImage(
             colorFilter: (widget.devocional.hasFrost ?? false)
-                ? ColorFilter.mode(Colors.black.withOpacity(0.45), BlendMode.darken)
+                ? ColorFilter.mode(Colors.black.withValues(alpha: 0.45), BlendMode.darken)
                 : null,
             fit: BoxFit.cover, image: CachedNetworkImageProvider(widget.devocional.bgImagem!)
         )
@@ -506,7 +506,7 @@ class _RejectedPostContainerState extends State<RejectedPostContainer> with Sing
         borderRadius: BorderRadius.circular(8),
         image: DecorationImage(
             colorFilter: (widget.devocional.hasFrost ?? false)
-                ? ColorFilter.mode(Colors.black.withOpacity(0.45), BlendMode.darken)
+                ? ColorFilter.mode(Colors.black.withValues(alpha: 0.45), BlendMode.darken)
                 : null,
             fit: BoxFit.cover, image: CachedNetworkImageProvider(widget.devocional.bgImagem!)
         )

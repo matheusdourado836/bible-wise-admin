@@ -200,7 +200,7 @@ class _ComentariosScreenState extends State<ComentariosScreen> {
                                     },
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.redAccent,
-                                        foregroundColor: Colors.white.withOpacity(.95),
+                                        foregroundColor: Colors.white.withValues(alpha: .95),
                                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))
                                     ),
                                     child: const Row(

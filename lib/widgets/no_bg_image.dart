@@ -13,7 +13,7 @@ class NoBgImage extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         image: DecorationImage(
-          colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.45), BlendMode.darken),
+          colorFilter: ColorFilter.mode(Colors.black.withValues(alpha: 0.45), BlendMode.darken),
           image: const AssetImage('assets/images/santidade.png'),
           fit: BoxFit.cover,
         ),
