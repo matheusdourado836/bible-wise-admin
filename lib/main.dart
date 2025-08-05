@@ -1,3 +1,4 @@
+import 'package:bible_wise_admin/models/devocional.dart';
 import 'package:bible_wise_admin/provider/comentarios_provider.dart';
 import 'package:bible_wise_admin/provider/devocional_provider.dart';
 import 'package:bible_wise_admin/screens/comentarios/comentarios_screen.dart';
@@ -60,6 +61,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<Devocional> _devocionais = [];
+
   Widget _pushSection(String label, String route) => InkWell(
     onTap: () => Navigator.pushNamed(context, route),
     child: Row(
@@ -73,6 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _containerInfo(String text, IconData icon, int qtd) => Container(
     padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
+    margin: const EdgeInsets.only(right: 8),
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         color: Colors.brown,
@@ -95,6 +99,16 @@ class _MyHomePageState extends State<MyHomePage> {
   );
 
   @override
+  void initState() {
+    final devocionalProvider = Provider.of<DevocionalProvider>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      _devocionais = await devocionalProvider.getAll();
+      setState(() {});
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -104,21 +118,18 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Wrap(
+          runSpacing: 16,
           children: <Widget>[
             _pushSection('Posts', 'posts'),
             const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _containerInfo('Aprovados', Icons.check_circle_outline_rounded, 0),
-                _containerInfo('Rejeitados', Icons.close, 0),
-              ],
+            _containerInfo(
+                'Aprovados',
+                Icons.check_circle_outline_rounded,
+                _devocionais.where((d) => d.status == 0).length
             ),
-            const SizedBox(height: 20),
-            _containerInfo('Excluídos', Icons.delete, 0),
+            _containerInfo('Rejeitados', Icons.close, _devocionais.where((d) => d.status == 2).length),
+            _containerInfo('Excluídos', Icons.delete, 1),
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0, top: 32.0),
               child: _pushSection('Comentários', 'comentarios'),

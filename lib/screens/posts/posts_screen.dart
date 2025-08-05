@@ -69,7 +69,7 @@ class _PostsScreenState extends State<PostsScreen> with TickerProviderStateMixin
         centerTitle: true,
       ),
       body: RefreshIndicator.adaptive(
-        onRefresh: () {return _update();},
+        onRefresh: () => _update(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -407,7 +407,10 @@ class _PostContainerState extends State<PostContainer> with SingleTickerProvider
                 Row(
                   children: [
                     Expanded(child: ElevatedButton(
-                        onPressed: () => devocionalProvider.updateUserData(widget.devocional.id!, {"status": 0}).whenComplete(() => widget.update()),
+                        onPressed: () {
+                          devocionalProvider.sendPostApprovedNotification(devocionalId: widget.devocional.id!, ownerId: widget.devocional.ownerId!, title: widget.devocional.titulo!);
+                          devocionalProvider.updateUserData(widget.devocional.id!, {"status": 0}).whenComplete(() => widget.update());
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green,
                           foregroundColor: Colors.white,
